@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Line War</title>
+  <meta name="description" content="Add fighters and watch them grab lines from the arena wall and cut each other's. Last one standing wins.">
+  <meta name="theme-color" content="#070709">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Line War">
+  <meta property="og:description" content="Add fighters and watch them grab lines from the arena wall and cut each other's. Last one standing wins.">
+  <meta property="og:url" content="https://williankeller.github.io/line-war/">
+  <meta property="og:image" content="https://williankeller.github.io/line-war/assets/screenshot.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Bebas+Neue&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main class="app">
+    <section class="stage" id="stage">
+      <canvas id="arena" width="800" height="1000" aria-label="Arena"></canvas>
+
+      <div class="overlay" id="winner" hidden>
+        <div class="overlay-card">
+          <div id="winner-avatar"></div>
+          <p class="overlay-label" id="winner-label">Winner</p>
+          <p class="overlay-name" id="winner-name"></p>
+          <div class="overlay-actions">
+            <button type="button" class="button button-primary" id="rematch">Rematch</button>
+            <button type="button" class="button" id="edit">Edit fighters</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel">
+      <header class="brand">
+        <h1>Line War</h1>
+        <p>Add fighters, press Start, and watch them fight over the lines. Last one standing wins.</p>
+      </header>
+
+      <div class="toolbar">
+        <button type="button" class="button button-primary" id="start">Start</button>
+        <button type="button" class="button" id="pause" disabled>Pause</button>
+        <button type="button" class="button" id="reset" disabled>Reset</button>
+      </div>
+
+      <section class="block">
+        <h2>Fighters <small id="roster-count"></small></h2>
+        <ul class="roster" id="roster"></ul>
+        <form class="add-form" id="add-form">
+          <input type="text" id="add-name" placeholder="Name or emoji" maxlength="24" autocomplete="off" aria-label="Fighter name">
+          <input type="color" id="add-color" value="#ff4fd8" aria-label="Fighter color">
+          <label class="button file-button" id="add-image-button">
+            <span id="add-image-label">Image</span>
+            <input type="file" id="add-image" accept="image/*" aria-label="Fighter image">
+          </label>
+          <button type="submit" class="button button-primary">Add</button>
+        </form>
+        <p class="hint">Type a name, start with an emoji (🦁 Lion), or upload a logo. Up to 16 fighters.</p>
+      </section>
+
+      <section class="block">
+        <h2>Live <small id="live-status"></small></h2>
+        <p class="hint hint-flush" id="live-hint">Line counts show up here once the match starts.</p>
+        <ul class="scoreboard" id="scoreboard"></ul>
+      </section>
+
+      <section class="block">
+        <h2>Settings</h2>
+        <div id="sliders"></div>
+        <div class="field">
+          <label for="title">Title</label>
+          <input type="text" id="title" maxlength="40">
+        </div>
+        <div class="field">
+          <label for="subtitle">Subtitle <small>{round} becomes the round number</small></label>
+          <input type="text" id="subtitle" maxlength="40">
+        </div>
+        <label class="check"><input type="checkbox" id="show-counts"> Show line counts on fighters</label>
+        <label class="check"><input type="checkbox" id="sound"> Sound effects</label>
+      </section>
+
+      <section class="block rules">
+        <h2>Rules</h2>
+        <ol>
+          <li>Fighters bounce around the arena at a constant speed.</li>
+          <li>Touching the wall makes a fighter <b>grip</b> it and slide along the ring. Every degree it slides adds one line anchored to the wall. Grazing hits slide longer and earn more lines.</li>
+          <li>A rival whose body crosses a line <b>cuts</b> it.</li>
+          <li>A fighter that loses its <b>last line</b> explodes.</li>
+          <li>In <b>sudden death</b>, grips get short and everyone speeds up, so the match always ends.</li>
+        </ol>
+        <p class="hint">Press Space to start, pause or resume.</p>
+      </section>
+
+      <footer class="footer">
+        <a href="https://github.com/williankeller/line-war">Source on GitHub</a>
+        <span>MIT License</span>
+      </footer>
+    </aside>
+  </main>
+</body>
+</html>
